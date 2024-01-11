@@ -26,27 +26,26 @@ class _TodoListState extends State<TodoList>{
   final List<Todo> _todos = [];
 
   void _addTodoItem(){
-    for (var i = 0; i <= 10; i++) {
-      Todo newToDo = Todo("Buy Groceries", false);
-      _todos.add(newToDo);
+    if (_todos.isEmpty){
+      for (var i = 0; i <= 100; i++) {
+        Todo newToDo = Todo("Buy Groceries $i" , false, "description");
+        _todos.add(newToDo);
+      }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _addTodoItem();
   }
 
   Widget _viewTodoItem(Todo todo){
     return ListTile(
       title: Text(todo.title),
-      leading: IconButton(
-        icon: Icon(
-          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
-        ),
-        onPressed: () {
-          setState(() {
-            todo.isDone = !todo.isDone;
-          });
-        },
-      ),
+      subtitle: Text(todo.description),
       trailing: IconButton(
-        icon: Icon(Icons.delete),
+        icon: const Icon(Icons.delete),
         onPressed: () {
           setState(() {
             _todos.remove(todo);
@@ -58,9 +57,8 @@ class _TodoListState extends State<TodoList>{
 
   @override
   Widget build(BuildContext context) {
-    _addTodoItem();
     return Scaffold(
-      appBar: AppBar(title: Text('Todo List')),
+      appBar: AppBar(title: const Text('Todo List')),
       body: ListView.builder(
         itemCount: _todos.length,
         itemBuilder: (context, index) {
@@ -68,6 +66,5 @@ class _TodoListState extends State<TodoList>{
         },
       ),
     );
-
   }
 }
