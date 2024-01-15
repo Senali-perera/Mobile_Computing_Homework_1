@@ -45,7 +45,10 @@ class _TodoListState extends State<TodoList>{
       title: Text(todo.title),
       subtitle: Text(todo.description),
       trailing: IconButton(
-        icon: const Icon(Icons.delete),
+        icon: const CircleAvatar(
+            radius: 48,
+            backgroundImage: AssetImage('assets/images/deleteImage.jpeg')
+        ),
         onPressed: () {
           setState(() {
             _todos.remove(todo);
